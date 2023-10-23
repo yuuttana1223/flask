@@ -4,7 +4,7 @@
 
 from markupsafe import escape
 
-from flask import Flask
+from flask import Flask, url_for
 
 app = Flask(__name__)
 
@@ -51,3 +51,8 @@ def about():
     これは、そのURLが一つの特異なリソースを指すものと見なされ、その下に他のリソースが存在しないと想定されるためです。
     """
     return 'The about page'
+
+with app.test_request_context():
+    print(url_for('hello_world'))
+    print(url_for('about', next='/'))
+    print(url_for('about', text="abc"))
